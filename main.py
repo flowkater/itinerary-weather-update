@@ -348,7 +348,7 @@ def get_weather_data_for_locations(cities_dates_map):
             uc_options.add_argument("--incognito")
             uc_options.add_argument("--disable-blink-features=AutomationControlled")
 
-            driver = uc.Chrome(options=uc_options, headless=True)
+            driver = uc.Chrome(options=uc_options, headless=True, use_subprocess=False)
             print("undetected-chromedriver로 초기화 성공")
         except Exception as e:
             print(f"undetected-chromedriver 초기화 실패: {e}")
