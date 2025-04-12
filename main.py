@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import undetected_chromedriver as uc
 import time
 import csv
@@ -14,7 +16,16 @@ from oauth2client.service_account import ServiceAccountCredentials
 def get_weather_info_for_date(driver, url, date):
     # 페이지 로드
     driver.get(url)
-    time.sleep(2)
+    # time.sleep(2) 대신 WebDriverWait 사용
+    try:
+        wait = WebDriverWait(driver, 15)  # 최대 15초 대기
+        # 페이지 로드를 확인하기 위한 특정 요소 대기 (예: daily-wrapper 클래스)
+        wait.until(EC.presence_of_element_located((By.CLASS_NAME, "daily-wrapper")))
+        print("페이지 로드 완료 (daily-wrapper 확인)")
+    except Exception as e:
+        print(f"페이지 로딩 대기 중 오류: {e}")
+        # 페이지 로드 실패 시 처리 (예: None 반환 또는 재시도)
+        return None
 
     # "daily-wrapper" 클래스의 모든 div 요소 가져오기
     daily_wrappers = driver.find_elements(By.CLASS_NAME, "daily-wrapper")
@@ -67,7 +78,19 @@ def get_detailed_weather_info(driver, link):
     # 상세 페이지로 이동
     driver.get(link)
     # 페이지 로딩 대기
-    time.sleep(2)
+    # time.sleep(2) 대신 WebDriverWait 사용
+    try:
+        wait = WebDriverWait(driver, 15)  # 최대 15초 대기
+        # 상세 페이지 로드를 확인하기 위한 특정 요소 대기 (예: half-day-card 클래스)
+        wait.until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, ".half-day-card.content-module")
+            )
+        )
+        print("상세 페이지 로드 완료 (half-day-card 확인)")
+    except Exception as e:
+        print(f"상세 페이지 로딩 대기 중 오류: {e}")
+        return None
 
     # 상세 정보 파싱
     try:
