@@ -238,9 +238,26 @@ def get_weather_data_for_locations(cities_dates_map):
     if is_github_actions:
         # GitHub Actions 환경에서는 Google Chrome 사용
         print("GitHub Actions 환경에서 실행 중...")
-        options.binary_location = "/usr/bin/google-chrome-stable"
-        service = Service("/usr/local/bin/chromedriver")
-        driver = webdriver.Chrome(service=service, options=options)
+        # 더 안정적인 세션을 위한 추가 옵션
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--remote-debugging-port=9222")
+        try:
+            driver = webdriver.Chrome(options=options)
+            print("Chrome 드라이버 초기화 성공")
+        except Exception as e:
+            print(f"Chrome 드라이버 초기화 실패: {e}")
+            # 실패 시 추가 디버깅 정보
+            import subprocess
+            print("Chrome 버전:")
+            subprocess.run(["google-chrome", "--version"], check=False)
+            print("ChromeDriver 버전:")
+            subprocess.run(["chromedriver", "--version"], check=False)
+            print("Chrome 위치:")
+            subprocess.run(["which", "google-chrome"], check=False)
+            print("ChromeDriver 위치:")
+            subprocess.run(["which", "chromedriver"], check=False)
+            raise
     else:
         # 로컬 환경에서는 로컬 ChromeDriver 사용
         print("로컬 환경에서 실행 중...")
