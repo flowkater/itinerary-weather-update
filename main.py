@@ -337,6 +337,9 @@ def get_weather_data_for_locations(cities_dates_map):
 
             user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             uc_options.add_argument(f"user-agent={user_agent}")
+            uc_options.add_argument(
+                "accept-language=ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
+            )
 
             uc_options.add_argument("--no-sandbox")
             uc_options.add_argument("--disable-dev-shm-usage")
@@ -345,7 +348,7 @@ def get_weather_data_for_locations(cities_dates_map):
             uc_options.add_argument("--incognito")
             uc_options.add_argument("--disable-blink-features=AutomationControlled")
 
-            driver = uc.Chrome(options=uc_options, headless=True, use_subprocess=False)
+            driver = uc.Chrome(options=uc_options, headless=True)
             print("undetected-chromedriver로 초기화 성공")
         except Exception as e:
             print(f"undetected-chromedriver 초기화 실패: {e}")
