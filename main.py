@@ -214,15 +214,14 @@ def get_weather_data_for_locations(cities_dates_map):
         각 도시별, 날짜별 날씨 정보를 포함하는 딕셔너리
     """
     # 헤드리스 모드 설정
-    from webdriver_manager.chrome import ChromeDriverManager
-    
+
     # GitHub Actions 환경인지 확인
     is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
-    
+
     options = Options()
     # 로그 레벨 최소화
     options.add_argument("--log-level=3")
-    options.add_argument("--headless=new")  # 새로운 헤드리스 모드
+    # options.add_argument("--headless=new")  # 새로운 헤드리스 모드
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
@@ -230,12 +229,14 @@ def get_weather_data_for_locations(cities_dates_map):
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-notifications")
     options.add_argument("--disable-popup-blocking")
-    
+
     # 절대 user-data-dir 사용하지 않음
     options.add_argument("--incognito")  # 시크릿 모드 사용
-    
+
     if is_github_actions:
-        # GitHub Actions 환경에서는 undetected_chromedriver 사용
+        from webdriver_manager.chrome import ChromeDriverManager
+
+        # # GitHub Actions 환경에서는 undetected_chromedriver 사용
         print("GitHub Actions 환경에서 실행 중...")
         try:
             # undetected-chromedriver를 사용하여 강화된 안정성
@@ -262,6 +263,7 @@ def get_weather_data_for_locations(cities_dates_map):
                 print(f"일반 Chrome 드라이버도 실패: {e2}")
                 # 디버깅 정보 출력
                 import subprocess
+
                 print("Chrome 설정 정보:")
                 subprocess.run(["google-chrome", "--version"], check=False)
                 subprocess.run(["which", "google-chrome"], check=False)
@@ -490,42 +492,42 @@ def format_time_delta(seconds):
 
 # 도시 정보와 날짜 정의
 cities_dates = {
-    "베네치아": {
-        "url": "https://www.accuweather.com/ko/it/venice/216711/daily-weather-forecast/216711",
-        "dates": ["4. 11.", "4. 15.", "4. 16.", "4. 17.", "4. 18."],
-    },
-    "피렌체": {
-        "url": "https://www.accuweather.com/ko/it/florence/216189/daily-weather-forecast/216189",
-        "dates": ["4. 18.", "4. 19.", "4. 20.", "4. 21.", "4. 22.", "4. 23."],
-    },
+    # "베네치아": {
+    #     "url": "https://www.accuweather.com/ko/it/venice/216711/daily-weather-forecast/216711",
+    #     "dates": ["4. 11.", "4. 15.", "4. 16.", "4. 17.", "4. 18."],
+    # },
+    # "피렌체": {
+    #     "url": "https://www.accuweather.com/ko/it/florence/216189/daily-weather-forecast/216189",
+    #     "dates": ["4. 18.", "4. 19.", "4. 20.", "4. 21.", "4. 22.", "4. 23."],
+    # },
     "시에나": {
         "url": "https://www.accuweather.com/ko/it/siena/216196/daily-weather-forecast/216196",
         "dates": ["4. 20."],
     },
-    "피사": {
-        "url": "https://www.accuweather.com/ko/it/pisa/216194/daily-weather-forecast/216194",
-        "dates": ["4. 21.", "4. 22."],
-    },
-    "나폴리": {
-        "url": "https://www.accuweather.com/ko/it/naples/212466/daily-weather-forecast/212466",
-        "dates": ["4. 23.", "4. 24.", "4. 25."],
-    },
-    "아말피": {
-        "url": "https://www.accuweather.com/ko/it/amalfi/212365/daily-weather-forecast/212365",
-        "dates": ["4. 25.", "4. 26.", "4. 27.", "4. 28.", "4. 29."],
-    },
-    "포지타노": {
-        "url": "https://www.accuweather.com/ko/it/positano/212430/weather-forecast/212430",
-        "dates": ["4. 26.", "4. 27.", "4. 28."],
-    },
-    "카프리": {
-        "url": "https://www.accuweather.com/ko/it/capri/212416/daily-weather-forecast/212416",
-        "dates": ["4. 26.", "4. 27.", "4. 28."],
-    },
-    "로마": {
-        "url": "https://www.accuweather.com/ko/it/rome/213490/daily-weather-forecast/213490",
-        "dates": ["4. 29.", "4. 30.", "5. 1.", "5. 2.", "5. 3."],
-    },
+    # "피사": {
+    #     "url": "https://www.accuweather.com/ko/it/pisa/216194/daily-weather-forecast/216194",
+    #     "dates": ["4. 21.", "4. 22."],
+    # },
+    # "나폴리": {
+    #     "url": "https://www.accuweather.com/ko/it/naples/212466/daily-weather-forecast/212466",
+    #     "dates": ["4. 23.", "4. 24.", "4. 25."],
+    # },
+    # "아말피": {
+    #     "url": "https://www.accuweather.com/ko/it/amalfi/212365/daily-weather-forecast/212365",
+    #     "dates": ["4. 25.", "4. 26.", "4. 27.", "4. 28.", "4. 29."],
+    # },
+    # "포지타노": {
+    #     "url": "https://www.accuweather.com/ko/it/positano/212430/weather-forecast/212430",
+    #     "dates": ["4. 26.", "4. 27.", "4. 28."],
+    # },
+    # "카프리": {
+    #     "url": "https://www.accuweather.com/ko/it/capri/212416/daily-weather-forecast/212416",
+    #     "dates": ["4. 26.", "4. 27.", "4. 28."],
+    # },
+    # "로마": {
+    #     "url": "https://www.accuweather.com/ko/it/rome/213490/daily-weather-forecast/213490",
+    #     "dates": ["4. 29.", "4. 30.", "5. 1.", "5. 2.", "5. 3."],
+    # },
 }
 
 if __name__ == "__main__":
