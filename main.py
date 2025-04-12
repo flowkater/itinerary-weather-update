@@ -586,42 +586,42 @@ def format_time_delta(seconds):
 
 # 도시 정보와 날짜 정의
 cities_dates = {
-    # "베네치아": {
-    #     "url": "https://www.accuweather.com/ko/it/venice/216711/daily-weather-forecast/216711",
-    #     "dates": ["4. 11.", "4. 15.", "4. 16.", "4. 17.", "4. 18."],
-    # },
-    # "피렌체": {
-    #     "url": "https://www.accuweather.com/ko/it/florence/216189/daily-weather-forecast/216189",
-    #     "dates": ["4. 18.", "4. 19.", "4. 20.", "4. 21.", "4. 22.", "4. 23."],
-    # },
+    "베네치아": {
+        "url": "https://www.accuweather.com/ko/it/venice/216711/daily-weather-forecast/216711",
+        "dates": ["4. 11.", "4. 15.", "4. 16.", "4. 17.", "4. 18."],
+    },
+    "피렌체": {
+        "url": "https://www.accuweather.com/ko/it/florence/216189/daily-weather-forecast/216189",
+        "dates": ["4. 18.", "4. 19.", "4. 20.", "4. 21.", "4. 22.", "4. 23."],
+    },
     "시에나": {
         "url": "https://www.accuweather.com/ko/it/siena/216196/daily-weather-forecast/216196",
         "dates": ["4. 20."],
     },
-    # "피사": {
-    #     "url": "https://www.accuweather.com/ko/it/pisa/216194/daily-weather-forecast/216194",
-    #     "dates": ["4. 21.", "4. 22."],
-    # },
-    # "나폴리": {
-    #     "url": "https://www.accuweather.com/ko/it/naples/212466/daily-weather-forecast/212466",
-    #     "dates": ["4. 23.", "4. 24.", "4. 25."],
-    # },
-    # "아말피": {
-    #     "url": "https://www.accuweather.com/ko/it/amalfi/212365/daily-weather-forecast/212365",
-    #     "dates": ["4. 25.", "4. 26.", "4. 27.", "4. 28.", "4. 29."],
-    # },
-    # "포지타노": {
-    #     "url": "https://www.accuweather.com/ko/it/positano/212430/weather-forecast/212430",
-    #     "dates": ["4. 26.", "4. 27.", "4. 28."],
-    # },
-    # "카프리": {
-    #     "url": "https://www.accuweather.com/ko/it/capri/212416/daily-weather-forecast/212416",
-    #     "dates": ["4. 26.", "4. 27.", "4. 28."],
-    # },
-    # "로마": {
-    #     "url": "https://www.accuweather.com/ko/it/rome/213490/daily-weather-forecast/213490",
-    #     "dates": ["4. 29.", "4. 30.", "5. 1.", "5. 2.", "5. 3."],
-    # },
+    "피사": {
+        "url": "https://www.accuweather.com/ko/it/pisa/216194/daily-weather-forecast/216194",
+        "dates": ["4. 21.", "4. 22."],
+    },
+    "나폴리": {
+        "url": "https://www.accuweather.com/ko/it/naples/212466/daily-weather-forecast/212466",
+        "dates": ["4. 23.", "4. 24.", "4. 25."],
+    },
+    "아말피": {
+        "url": "https://www.accuweather.com/ko/it/amalfi/212365/daily-weather-forecast/212365",
+        "dates": ["4. 25.", "4. 26.", "4. 27.", "4. 28.", "4. 29."],
+    },
+    "포지타노": {
+        "url": "https://www.accuweather.com/ko/it/positano/212430/weather-forecast/212430",
+        "dates": ["4. 26.", "4. 27.", "4. 28."],
+    },
+    "카프리": {
+        "url": "https://www.accuweather.com/ko/it/capri/212416/daily-weather-forecast/212416",
+        "dates": ["4. 26.", "4. 27.", "4. 28."],
+    },
+    "로마": {
+        "url": "https://www.accuweather.com/ko/it/rome/213490/daily-weather-forecast/213490",
+        "dates": ["4. 29.", "4. 30.", "5. 1.", "5. 2.", "5. 3."],
+    },
 }
 
 if __name__ == "__main__":
