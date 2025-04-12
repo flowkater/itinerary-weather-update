@@ -223,10 +223,10 @@ def get_weather_data_for_locations(cities_dates_map):
     is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
 
     if is_github_actions:
-        # GitHub Actions 환경에서는 직접 설치한 ChromeDriver 사용
+        # GitHub Actions 환경에서는 Chromium 사용
         print("GitHub Actions 환경에서 실행 중...")
         options.add_argument("--remote-debugging-port=9222")
-        options.binary_location = "/usr/bin/google-chrome"
+        options.binary_location = "/usr/bin/chromium-browser"
         service = Service("/usr/local/bin/chromedriver")
         driver = webdriver.Chrome(service=service, options=options)
     else:
