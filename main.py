@@ -331,15 +331,20 @@ def get_weather_data_for_locations(cities_dates_map):
         try:
             # undetected-chromedriver를 사용하여 강화된 안정성
             print("undetected-chromedriver를 사용하여 드라이버 초기화 시도...")
-            options.add_argument("--disable-blink-features=AutomationControlled")
+
             # headless 모드는 undetected-chromedriver에서 다르게 설정
             uc_options = uc.ChromeOptions()
-            # uc_options.add_argument("--headless")
+
+            user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            uc_options.add_argument(f"user-agent={user_agent}")
+
             uc_options.add_argument("--no-sandbox")
             uc_options.add_argument("--disable-dev-shm-usage")
             uc_options.add_argument("--disable-gpu")
             uc_options.add_argument("--disable-extensions")
             uc_options.add_argument("--incognito")
+            uc_options.add_argument("--disable-blink-features=AutomationControlled")
+
             driver = uc.Chrome(options=uc_options, headless=True, use_subprocess=False)
             print("undetected-chromedriver로 초기화 성공")
         except Exception as e:
