@@ -218,6 +218,12 @@ def get_weather_data_for_locations(cities_dates_map):
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
+    options.add_argument("--user-data-dir=/tmp/chrome-data")
+    options.add_argument("--remote-debugging-port=9222")
 
     # GitHub Actions 환경인지 확인
     is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
@@ -225,7 +231,6 @@ def get_weather_data_for_locations(cities_dates_map):
     if is_github_actions:
         # GitHub Actions 환경에서는 Chromium 사용
         print("GitHub Actions 환경에서 실행 중...")
-        options.add_argument("--remote-debugging-port=9222")
         options.binary_location = "/usr/bin/chromium-browser"
         service = Service("/usr/local/bin/chromedriver")
         driver = webdriver.Chrome(service=service, options=options)
