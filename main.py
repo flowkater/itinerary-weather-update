@@ -13,18 +13,47 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-def get_weather_info_for_date(driver, url, date):
+def get_weather_info_for_date(driver, url, date, city_name):
     # 페이지 로드
     driver.get(url)
-    # time.sleep(2) 대신 WebDriverWait 사용
+
     try:
-        wait = WebDriverWait(driver, 15)  # 최대 15초 대기
-        # 페이지 로드를 확인하기 위한 특정 요소 대기 (예: daily-wrapper 클래스)
+        # 페이지 초기 렌더링 및 잠재적 오버레이 위한 짧은 대기 (선택 사항)
+        time.sleep(3)
+
+        # 쿠키 동의 버튼 클릭 시도 (예: AccuWeather의 일반적인 ID)
+        try:
+            consent_button = driver.find_element(By.ID, "onetrust-accept-btn-handler")
+            if consent_button.is_displayed() and consent_button.is_enabled():
+                print("쿠키 동의 버튼 발견, 클릭 시도.")
+                consent_button.click()
+                time.sleep(2)  # 클릭 후 잠시 대기
+        except Exception:
+            print("쿠키 동의 버튼을 찾지 못했거나 상호작용할 수 없습니다.")
+            pass  # 버튼 없거나 오류 발생 시 계속 진행
+
+        # WebDriverWait 대기 시간 늘리기 (예: 30초)
+        wait = WebDriverWait(driver, 30)
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, "daily-wrapper")))
         print("페이지 로드 완료 (daily-wrapper 확인)")
+
     except Exception as e:
-        print(f"페이지 로딩 대기 중 오류: {e}")
-        # 페이지 로드 실패 시 처리 (예: None 반환 또는 재시도)
+        print(f"페이지 로딩 대기 중 오류 ({city_name} - {date}): {e}")
+        # --- 오류 시 디버깅 정보 저장 ---
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        # 파일 이름에 도시/날짜 포함하여 고유하게 만듦
+        safe_date = date.replace(".", "").replace(" ", "")
+        screenshot_filename = f"error_{city_name}_{safe_date}_{timestamp}.png"
+        html_filename = f"error_{city_name}_{safe_date}_{timestamp}.html"
+        try:
+            driver.save_screenshot(screenshot_filename)
+            print(f"스크린샷 저장 완료: {screenshot_filename}")
+            with open(html_filename, "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+            print(f"HTML 소스 저장 완료: {html_filename}")
+        except Exception as save_error:
+            print(f"디버깅 정보 저장 실패: {save_error}")
+        # --- 디버깅 정보 저장 끝 ---
         return None
 
     # "daily-wrapper" 클래스의 모든 div 요소 가져오기
@@ -77,19 +106,53 @@ def get_weather_info_for_date(driver, url, date):
 def get_detailed_weather_info(driver, link):
     # 상세 페이지로 이동
     driver.get(link)
-    # 페이지 로딩 대기
-    # time.sleep(2) 대신 WebDriverWait 사용
+
     try:
-        wait = WebDriverWait(driver, 15)  # 최대 15초 대기
-        # 상세 페이지 로드를 확인하기 위한 특정 요소 대기 (예: half-day-card 클래스)
+        # 페이지 초기 렌더링 및 잠재적 오버레이 위한 짧은 대기 (선택 사항)
+        time.sleep(3)
+
+        # 쿠키 동의 버튼 클릭 시도 (상세 페이지에서도 나타날 수 있음)
+        try:
+            consent_button = driver.find_element(By.ID, "onetrust-accept-btn-handler")
+            if consent_button.is_displayed() and consent_button.is_enabled():
+                print("상세 페이지 쿠키 동의 버튼 발견, 클릭 시도.")
+                consent_button.click()
+                time.sleep(2)  # 클릭 후 잠시 대기
+        except Exception:
+            print("상세 페이지 쿠키 동의 버튼을 찾지 못했거나 상호작용할 수 없습니다.")
+            pass
+
+        # WebDriverWait 대기 시간 늘리기 (예: 30초)
+        wait = WebDriverWait(driver, 30)
         wait.until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, ".half-day-card.content-module")
             )
         )
         print("상세 페이지 로드 완료 (half-day-card 확인)")
+
     except Exception as e:
         print(f"상세 페이지 로딩 대기 중 오류: {e}")
+        # --- 오류 시 디버깅 정보 저장 ---
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        # 링크에서 고유한 부분 추출하여 파일 이름 생성
+        try:
+            link_part = (
+                link.split("/")[-2] if link.count("/") >= 2 else "unknown_detail"
+            )
+        except:
+            link_part = "unknown_detail"
+        screenshot_filename = f"error_detail_{link_part}_{timestamp}.png"
+        html_filename = f"error_detail_{link_part}_{timestamp}.html"
+        try:
+            driver.save_screenshot(screenshot_filename)
+            print(f"스크린샷 저장 완료: {screenshot_filename}")
+            with open(html_filename, "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+            print(f"HTML 소스 저장 완료: {html_filename}")
+        except Exception as save_error:
+            print(f"디버깅 정보 저장 실패: {save_error}")
+        # --- 디버깅 정보 저장 끝 ---
         return None
 
     # 상세 정보 파싱
@@ -255,6 +318,10 @@ def get_weather_data_for_locations(cities_dates_map):
 
     # 절대 user-data-dir 사용하지 않음
     options.add_argument("--incognito")  # 시크릿 모드 사용
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    )  # 일반적인 User-Agent 추가
+    options.add_argument("--window-size=1920,1080")  # 창 크기 지정
 
     if is_github_actions:
         from webdriver_manager.chrome import ChromeDriverManager
@@ -322,8 +389,10 @@ def get_weather_data_for_locations(cities_dates_map):
             for date in future_dates:
                 print(f"{city_name} - {date} 날씨 정보 가져오는 중...")
 
-                # 기본 날씨 정보 가져오기
-                weather_info = get_weather_info_for_date(driver, city_url, date)
+                # 기본 날씨 정보 가져오기 (city_name 인자 전달)
+                weather_info = get_weather_info_for_date(
+                    driver, city_url, date, city_name
+                )
 
                 if weather_info:
                     # 상세 날씨 정보 가져오기
