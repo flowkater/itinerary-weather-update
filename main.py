@@ -222,8 +222,15 @@ def get_weather_data_for_locations(cities_dates_map):
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-notifications")
     options.add_argument("--disable-popup-blocking")
-    options.add_argument("--user-data-dir=/tmp/chrome-data")
-    options.add_argument("--remote-debugging-port=9222")
+
+    # 임시 디렉토리 설정
+    temp_dir = "/tmp/chrome-profile"
+    if os.path.exists(temp_dir):
+        import shutil
+
+        shutil.rmtree(temp_dir)
+    os.makedirs(temp_dir)
+    options.add_argument(f"--user-data-dir={temp_dir}")
 
     # GitHub Actions 환경인지 확인
     is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
