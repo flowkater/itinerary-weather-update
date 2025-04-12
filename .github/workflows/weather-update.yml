@@ -6,6 +6,10 @@ on:
     - cron: '0 23,5,11,17 * * *'  # UTC 시간 기준
   workflow_dispatch:  # 수동 실행을 위한 트리거
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-weather:
     runs-on: ubuntu-latest
