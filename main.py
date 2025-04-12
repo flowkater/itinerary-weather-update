@@ -226,7 +226,7 @@ def get_weather_data_for_locations(cities_dates_map):
         # GitHub Actions 환경에서는 webdriver-manager 사용
         print("GitHub Actions 환경에서 실행 중...")
         options.add_argument("--remote-debugging-port=9222")
-        options.binary_location = "/usr/bin/chromium-browser"
+        options.binary_location = "/usr/bin/google-chrome"
         from webdriver_manager.chrome import ChromeDriverManager
         from selenium.webdriver.chrome.service import Service
 
