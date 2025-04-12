@@ -31,6 +31,10 @@ jobs:
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: stable
+
+    - name: Test AccuWeather Connection
+      run: |
+        curl -v https://www.accuweather.com/ko/it/siena/216196/daily-weather-forecast/216196
         
     - name: Run weather update script
       env:
