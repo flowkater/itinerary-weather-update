@@ -1,0 +1,30 @@
+﻿날짜,도시명,요일,날씨 설명,최고기온,최저기온,체감온도 (RealFeel),낮 강수량 (mm),낮 강수 확률,낮 날씨 설명,밤 강수량 (mm),밤 강수 확률,밤 날씨 설명,낮 아이콘,밤 아이콘
+4. 15.,베네치아,화,오전에 가벼운 비; 흐림,18°,15°,19°,1.3,59%,오전에 가벼운 비; 흐림,2.0,67%,저녁에 몇 차례 소나기; 약간 흐림,/images/weathericons/12.svg,/images/weathericons/39.svg
+4. 16.,베네치아,수,대체로 흐리고 약한 바람이 붊,18°,15°,20°,N/A,25%,대체로 흐리고 약한 바람이 붊,7.6,95%,흐리고 거센 소나기가 내림,/images/weathericons/6.svg,/images/weathericons/12.svg
+4. 17.,베네치아,목,흐리고 약한 바람이 불며 소나기가 내림,19°,14°,16°,11.3,91%,흐리고 약한 바람이 불며 소나기가 내림,7.6,90%,저녁에 몇 차례 소나기; 흐림,/images/weathericons/12.svg,/images/weathericons/12.svg
+4. 18.,베네치아,금,흐리고 소나기가 내림,18°,13°,18°,0.9,56%,흐리고 소나기가 내림,0.6,56%,저녁에 몇 차례 소나기; 대체로 흐림,/images/weathericons/12.svg,/images/weathericons/12.svg
+4. 18.,피렌체,금,흐리고 소나기가 내림,21°,11°,19°,14.7,74%,흐리고 소나기가 내림,N/A,25%,약간 흐림,/images/weathericons/12.svg,/images/weathericons/36.svg
+4. 19.,피렌체,토,대체로 흐림,19°,11°,19°,N/A,14%,대체로 흐림,N/A,19%,흐림,/images/weathericons/6.svg,/images/weathericons/7.svg
+4. 20.,피렌체,일,흐리고 몇 차례 소나기가 내림,21°,10°,20°,1.5,55%,흐리고 몇 차례 소나기가 내림,2.5,55%,흐리고 가벼운 비가 내림,/images/weathericons/12.svg,/images/weathericons/12.svg
+4. 20.,시에나,일,흐리고 몇 차례 소나기가 내림,18°,10°,18°,1.7,55%,흐리고 몇 차례 소나기가 내림,1.3,55%,흐리고 가벼운 비가 내림,/images/weathericons/12.svg,/images/weathericons/12.svg
+4. 21.,피렌체,월,오전에 가벼운 비; 대체로 흐림,20°,10°,20°,1.7,60%,오전에 가벼운 비; 대체로 흐림,N/A,9%,약간 흐림,/images/weathericons/12.svg,/images/weathericons/35.svg
+4. 21.,피사,월,때때로 비가 내림,18°,10°,21°,4.7,60%,때때로 비가 내림,N/A,17%,대체로 맑음,/images/weathericons/18.svg,/images/weathericons/34.svg
+4. 22.,피렌체,화,맑음,22°,11°,25°,N/A,1%,맑음,N/A,0%,맑음,/images/weathericons/1.svg,/images/weathericons/33.svg
+4. 22.,피사,화,대체로 맑음,19°,11°,24°,N/A,1%,대체로 맑음,N/A,0%,맑음,/images/weathericons/2.svg,/images/weathericons/33.svg
+4. 23.,피렌체,수,약간 흐림,23°,10°,26°,N/A,1%,약간 흐림,N/A,1%,맑음,/images/weathericons/3.svg,/images/weathericons/33.svg
+4. 23.,나폴리,수,맑음,21°,12°,24°,N/A,1%,맑음,N/A,0%,맑음,/images/weathericons/1.svg,/images/weathericons/33.svg
+4. 24.,나폴리,목,맑음,21°,13°,25°,N/A,0%,맑음,N/A,0%,맑음,/images/weathericons/1.svg,/images/weathericons/33.svg
+4. 25.,나폴리,금,약간 흐림,18°,9°,20°,N/A,20%,약간 흐림,N/A,20%,대체로 맑음,/images/weathericons/3.svg,/images/weathericons/34.svg
+4. 25.,아말피,금,오전에 소나기; 약간 흐림,18°,10°,18°,0.5,55%,오전에 소나기; 약간 흐림,N/A,20%,약간 흐림,/images/weathericons/4.svg,/images/weathericons/35.svg
+4. 26.,아말피,토,약간 흐림,21°,13°,24°,N/A,20%,약간 흐림,N/A,10%,대체로 맑음,/images/weathericons/3.svg,/images/weathericons/34.svg
+4. 26.,카프리,토,대체로 흐림,18°,10°,20°,N/A,25%,대체로 흐림,N/A,20%,대체로 맑음,/images/weathericons/6.svg,/images/weathericons/34.svg
+4. 27.,아말피,일,대체로 맑음,21°,12°,25°,N/A,10%,대체로 맑음,N/A,5%,맑음,/images/weathericons/2.svg,/images/weathericons/33.svg
+4. 27.,카프리,일,대체로 맑음,18°,12°,22°,N/A,10%,대체로 맑음,N/A,5%,맑음,/images/weathericons/2.svg,/images/weathericons/33.svg
+4. 28.,아말피,월,점차 흐려짐,22°,13°,23°,N/A,25%,점차 흐려짐,4.5,59%,때때로 비가 내림,/images/weathericons/6.svg,/images/weathericons/18.svg
+4. 28.,카프리,월,점차 흐려짐,19°,13°,18°,N/A,25%,점차 흐려짐,5.9,73%,비가 내림,/images/weathericons/6.svg,/images/weathericons/18.svg
+4. 29.,아말피,화,오전 중 몇 차례 소나기와 뇌우; 대체로 흐림,22°,14°,25°,2.1,64%,오전 중 몇 차례 소나기와 뇌우; 대체로 흐림,N/A,20%,대체로 맑음,/images/weathericons/16.svg,/images/weathericons/34.svg
+4. 29.,로마,화,구름이 줄어듦,22°,11°,25°,N/A,25%,구름이 줄어듦,N/A,10%,맑음,/images/weathericons/4.svg,/images/weathericons/33.svg
+4. 30.,로마,수,약간 흐리고 오후에 뇌우가 내림,19°,10°,19°,1.5,55%,약간 흐리고 오후에 뇌우가 내림,2.0,56%,저녁에 뇌우; 약간 흐림,/images/weathericons/4.svg,/images/weathericons/34.svg
+5. 1.,로마,목,오전에 소나기나 뇌우; 대체로 맑음,19°,9°,20°,1.7,55%,오전에 소나기나 뇌우; 대체로 맑음,1.2,60%,약간 흐리고 밤 늦게 소나기가 내림,/images/weathericons/2.svg,/images/weathericons/36.svg
+5. 2.,로마,금,오전에 소나기; 약간 흐림,19°,9°,21°,1.0,58%,오전에 소나기; 약간 흐림,0.8,57%,저녁에 소나기; 약간 흐림,/images/weathericons/4.svg,/images/weathericons/35.svg
+5. 3.,로마,토,대체로 맑음,20°,9°,24°,N/A,10%,대체로 맑음,N/A,20%,대체로 맑음,/images/weathericons/2.svg,/images/weathericons/34.svg

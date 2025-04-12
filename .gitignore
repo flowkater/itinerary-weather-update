@@ -4,9 +4,6 @@
 # Python virtual environment
 /venv/
 
-# CSV files
-*.csv
-
 # Google credentials
 credentials.json
 
