@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+import undetected_chromedriver as uc
 import time
 import csv
 import os
@@ -212,9 +213,16 @@ def get_weather_data_for_locations(cities_dates_map):
     Returns:
         각 도시별, 날짜별 날씨 정보를 포함하는 딕셔너리
     """
-    # Headless 모드 설정
+    # 헤드리스 모드 설정
+    from webdriver_manager.chrome import ChromeDriverManager
+    
+    # GitHub Actions 환경인지 확인
+    is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
+    
     options = Options()
-    options.headless = True
+    # 로그 레벨 최소화
+    options.add_argument("--log-level=3")
+    options.add_argument("--headless=new")  # 새로운 헤드리스 모드
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
@@ -222,43 +230,44 @@ def get_weather_data_for_locations(cities_dates_map):
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-notifications")
     options.add_argument("--disable-popup-blocking")
-
-    # GitHub Actions에서는 user-data-dir 설정을 사용하지 않음
-    if not os.getenv("GITHUB_ACTIONS") == "true":
-        # 로컬 환경에서만 임시 디렉토리 설정
-        temp_dir = "/tmp/chrome-profile"
-        if os.path.exists(temp_dir):
-            import shutil
-            shutil.rmtree(temp_dir)
-        os.makedirs(temp_dir)
-        options.add_argument(f"--user-data-dir={temp_dir}")
-
-    # GitHub Actions 환경인지 확인
-    is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
-
+    
+    # 절대 user-data-dir 사용하지 않음
+    options.add_argument("--incognito")  # 시크릿 모드 사용
+    
     if is_github_actions:
-        # GitHub Actions 환경에서는 Google Chrome 사용
+        # GitHub Actions 환경에서는 undetected_chromedriver 사용
         print("GitHub Actions 환경에서 실행 중...")
-        # 더 안정적인 세션을 위한 추가 옵션
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--remote-debugging-port=9222")
         try:
-            driver = webdriver.Chrome(options=options)
-            print("Chrome 드라이버 초기화 성공")
+            # undetected-chromedriver를 사용하여 강화된 안정성
+            print("undetected-chromedriver를 사용하여 드라이버 초기화 시도...")
+            options.add_argument("--disable-blink-features=AutomationControlled")
+            # headless 모드는 undetected-chromedriver에서 다르게 설정
+            uc_options = uc.ChromeOptions()
+            uc_options.add_argument("--headless")
+            uc_options.add_argument("--no-sandbox")
+            uc_options.add_argument("--disable-dev-shm-usage")
+            uc_options.add_argument("--disable-gpu")
+            uc_options.add_argument("--disable-extensions")
+            uc_options.add_argument("--incognito")
+            driver = uc.Chrome(options=uc_options)
+            print("undetected-chromedriver로 초기화 성공")
         except Exception as e:
-            print(f"Chrome 드라이버 초기화 실패: {e}")
-            # 실패 시 추가 디버깅 정보
-            import subprocess
-            print("Chrome 버전:")
-            subprocess.run(["google-chrome", "--version"], check=False)
-            print("ChromeDriver 버전:")
-            subprocess.run(["chromedriver", "--version"], check=False)
-            print("Chrome 위치:")
-            subprocess.run(["which", "google-chrome"], check=False)
-            print("ChromeDriver 위치:")
-            subprocess.run(["which", "chromedriver"], check=False)
-            raise
+            print(f"undetected-chromedriver 초기화 실패: {e}")
+            try:
+                # 실패한 경우 일반 Chrome 시도
+                print("일반 Chrome 드라이버로 시도...")
+                driver = webdriver.Chrome(options=options)
+                print("일반 Chrome 드라이버 초기화 성공")
+            except Exception as e2:
+                print(f"일반 Chrome 드라이버도 실패: {e2}")
+                # 디버깅 정보 출력
+                import subprocess
+                print("Chrome 설정 정보:")
+                subprocess.run(["google-chrome", "--version"], check=False)
+                subprocess.run(["which", "google-chrome"], check=False)
+                subprocess.run(["chromedriver", "--version"], check=False)
+                subprocess.run(["which", "chromedriver"], check=False)
+                raise
     else:
         # 로컬 환경에서는 로컬 ChromeDriver 사용
         print("로컬 환경에서 실행 중...")
