@@ -1,0 +1,45 @@
+name: Weather Update
+
+on:
+  schedule:
+    # 이탈리아 시간 기준 00:00, 06:00, 12:00, 18:00 (UTC+1)
+    - cron: '0 23,5,11,17 * * *'  # UTC 시간 기준
+  workflow_dispatch:  # 수동 실행을 위한 트리거
+
+jobs:
+  update-weather:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser
+        
+    - name: Run weather update script
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      run: |
+        # credentials.json 파일 생성
+        echo "$GOOGLE_CREDENTIALS" > credentials.json
+        # 스크립트 실행
+        python main.py
+        
+    - name: Commit and push if changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add weather_data_test.csv
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update weather data [skip ci]" && git push) 
