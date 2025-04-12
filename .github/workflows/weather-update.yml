@@ -29,6 +29,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y chromium-browser chromium-driver
         
+        # Chromium 실행 파일 경로 확인 및 심볼릭 링크 생성
+        CHROMIUM_PATH=$(which chromium-browser)
+        sudo ln -sf $CHROMIUM_PATH /usr/bin/chromium
+        
         # ChromeDriver 심볼릭 링크 생성
         sudo ln -s /usr/bin/chromedriver /usr/local/bin/chromedriver
         sudo chmod +x /usr/local/bin/chromedriver
